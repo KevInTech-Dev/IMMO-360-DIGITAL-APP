@@ -1,0 +1,96 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum Role {
+  CLIENT
+  PROPRIETAIRE
+  ADMIN
+}
+
+enum StatutPublication {
+  BROUILLON
+  PUBLIE
+  ARCHIVE
+}
+
+enum StatutReservation {
+  ATTENTE_PAIEMENT
+  CONFIRMEE
+  TERMINEE
+  ANNULEE
+}
+
+enum StatutPaiement {
+  EN_ATTENTE
+  SUCCES
+  ECHEC
+  REMBOURSE
+}
+
+model User {
+  id        String   @id @default(uuid())
+  nom       String
+  email     String   @unique
+  password  String
+  role      Role     @default(CLIENT)
+  telephone String?
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  biens        Bien[]        @relation("ProprietaireBiens")
+  reservations Reservation[] @relation("LocataireReservations")
+}
+
+model Bien {
+  id                String            @id @default(uuid())
+  titre             String
+  description       String
+  prix              Float
+  adresse           String
+  statutPublication StatutPublication @default(BROUILLON)
+  isActive          Boolean           @default(true)
+  createdAt         DateTime          @default(now())
+  updatedAt         DateTime          @updatedAt
+
+  proprietaireId String
+  proprietaire   User   @relation("ProprietaireBiens", fields: [proprietaireId], references: [id])
+
+  reservations Reservation[]
+}
+
+model Reservation {
+  id           String            @id @default(uuid())
+  dateDebut    DateTime
+  dateFin      DateTime
+  statut       StatutReservation @default(ATTENTE_PAIEMENT)
+  montantTotal Float
+  createdAt    DateTime          @default(now())
+  updatedAt    DateTime          @updatedAt
+
+  locataireId String
+  locataire   User   @relation("LocataireReservations", fields: [locataireId], references: [id])
+
+  bienId String
+  bien   Bien   @relation(fields: [bienId], references: [id])
+
+  paiements Paiement[]
+}
+
+model Paiement {
+  id                String         @id @default(uuid())
+  montant           Float
+  datePaiement      DateTime?
+  statut            StatutPaiement @default(EN_ATTENTE)
+  referencePayDunya String?        @unique
+  createdAt         DateTime       @default(now())
+  updatedAt         DateTime       @updatedAt
+
+  reservationId String
+  reservation   Reservation @relation(fields: [reservationId], references: [id])
+}
