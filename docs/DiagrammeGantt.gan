@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?><project name="IMMO 360 DIGITAL" company="Projet_Tutoré" webLink="http://" view-date="2026-02-09" view-index="0" gantt-divider-location="318" resource-divider-location="300" version="3.3.3312" locale="fr_FR">
+    <description><![CDATA[Le projet IMMO 360 DIGITAL vise à concevoir une plateforme web destinée à moderniser la
+gestion immobilière.]]></description>
+    <view zooming-state="default:4" id="gantt-chart">
+        <field id="tpd3" name="Nom" width="172" order="0"/>
+        <field id="tpd4" name="Date de début" width="65" order="1"/>
+        <field id="tpd5" name="Date de fin" width="65" order="2"/>
+        <field id="tpd15" name="Notes" width="20" order="3"/>
+        <option id="taskLabelUp" value="advancement"/>
+        <option id="taskLabelDown" value="name"/>
+        <option id="taskLabelLeft" value="length"/>
+        <option id="taskLabelRight" value="resources"/>
+        <option id="filter.completedTasks" value="false"/>
+        <option id="filter.dueTodayTasks" value="false"/>
+        <option id="filter.overdueTasks" value="false"/>
+        <option id="filter.inProgressTodayTasks" value="false"/>
+        <option id="color.recent"><![CDATA[#cccc00 #003300 #009900 #0066cc #99ff00 #000000 #0066ff]]></option>
+    </view>
+    <view id="resource-table">
+        <field id="0" name="Nom" width="210" order="0"/>
+        <field id="1" name="Rôle par défaut" width="86" order="1"/>
+    </view>
+    <!-- -->
+    <calendars>
+        <day-types>
+            <day-type id="0"/>
+            <day-type id="1"/>
+            <default-week id="1" name="default" sun="1" mon="0" tue="0" wed="0" thu="0" fri="0" sat="1"/>
+            <only-show-weekends value="true"/>
+            <overriden-day-types/>
+            <days/>
+        </day-types>
+    </calendars>
+    <tasks empty-milestones="true">
+        <taskproperties>
+            <taskproperty id="tpd0" name="type" type="default" valuetype="icon"/>
+            <taskproperty id="tpd1" name="priority" type="default" valuetype="icon"/>
+            <taskproperty id="tpd2" name="info" type="default" valuetype="icon"/>
+            <taskproperty id="tpd3" name="name" type="default" valuetype="text"/>
+            <taskproperty id="tpd4" name="begindate" type="default" valuetype="date"/>
+            <taskproperty id="tpd5" name="enddate" type="default" valuetype="date"/>
+            <taskproperty id="tpd6" name="duration" type="default" valuetype="int"/>
+            <taskproperty id="tpd7" name="completion" type="default" valuetype="int"/>
+            <taskproperty id="tpd8" name="coordinator" type="default" valuetype="text"/>
+            <taskproperty id="tpd9" name="predecessorsr" type="default" valuetype="text"/>
+        </taskproperties>
+        <task id="0" uid="b3193858f60f44faa1e999a44cde1157" name="Phase d'initiation" color="#000000" meeting="false" start="2026-02-01" duration="7" complete="100" expand="true">
+            <task id="7" uid="8c0a5563323e4a6cac384b1a4690cd55" name="Mise en place de la fiche des besoins" color="#0066cc" meeting="false" start="2026-02-01" duration="2" complete="100" expand="true">
+                <depend id="8" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="8" uid="e6b42310999d4415aa9d83c425304c17" name="Conception du cahier des charges" color="#0066ff" meeting="false" start="2026-02-03" duration="3" complete="100" expand="true">
+                <depend id="9" type="2" difference="0" hardness="Strong"/>
+                <depend id="10" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="10" uid="8298bfbe1265406ea6c471f990f71fdb" name="Validation du cahier des charges" color="#000000" meeting="true" start="2026-02-06" duration="0" complete="0" expand="true"/>
+            <task id="9" uid="a644be453f004bbf89160c5bc41537c3" name="Conception du cahier technique" color="#0066ff" meeting="false" start="2026-02-06" duration="2" complete="100" expand="true"/>
+        </task>
+        <task id="1" uid="d925e7d5681148b1856f364848b96ac0" name="Phase de planification et de suivi" color="#000000" meeting="false" start="2026-01-01" duration="47" complete="100" expand="true">
+            <task id="11" uid="a4452e982c844d13b8eb0545d83c6d65" name="Mise en place du Trello" color="#0066ff" meeting="false" start="2026-01-01" duration="20" complete="100" expand="true"/>
+            <task id="12" uid="cb68360f13f14b6eb68156d65ec36734" name="Mise en place du diagramme de Gantt" color="#0066ff" meeting="false" start="2026-01-30" duration="18" complete="100" expand="true">
+                <depend id="13" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="13" uid="894219a47e1b4c69a787e7e686738ca4" name="Validation du diagramme de Gantt" meeting="true" start="2026-02-17" duration="0" complete="0" expand="true"/>
+        </task>
+        <task id="2" uid="932fd4f952f9482799b0459e343012d9" name="Phase de design" color="#000000" meeting="false" start="2026-01-20" duration="45" complete="95" expand="true">
+            <task id="14" uid="4a4f77a2469046a195bfbb6d9014faa1" name="Définition du code couleur" color="#009900" meeting="false" start="2026-01-20" duration="5" complete="100" expand="true">
+                <depend id="15" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="15" uid="fe34fd800d264e98a8edf714d6c3819b" name="Conception du Logo" color="#009900" meeting="false" start="2026-01-25" duration="10" complete="100" expand="true">
+                <depend id="16" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="16" uid="34b1336c25234fcbbebbfb16606e7c59" name="Conception de la maquette Figma" color="#009900" meeting="false" start="2026-02-04" duration="28" complete="100" expand="true">
+                <depend id="17" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="17" uid="cbcff46843204a05bdcfecd8e16a9c28" name="Prototypage de la maquette" color="#009900" meeting="false" start="2026-03-04" duration="2" complete="0" expand="true">
+                <depend id="18" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="18" uid="c186c1da4e474edb9dc73b27c354391d" name="Finalisation du design" color="#000000" meeting="true" start="2026-03-06" duration="0" complete="0" expand="true">
+                <depend id="23" type="2" difference="0" hardness="Strong"/>
+            </task>
+        </task>
+        <task id="3" uid="57ced692a2134aab935b626c7214f8d8" name="Phase de modélisation" color="#000000" meeting="false" start="2026-02-10" duration="28" complete="64" expand="true">
+            <task id="19" uid="56847582d2014edf95cd74fc905750bb" name="Conception du Use Case &amp; Diagramme de Package" color="#0066cc" meeting="false" start="2026-02-10" duration="10" complete="100" expand="true">
+                <depend id="20" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="20" uid="a656048b63a34a458d9c59485bf6fcef" name="Conception du diagramme de classe" color="#0066cc" meeting="false" start="2026-02-20" duration="8" complete="100" expand="true">
+                <depend id="21" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="21" uid="a2c16782dd0241949c9a82d028149189" name="Elaboration du MCD et du MLD" color="#0066cc" meeting="false" start="2026-02-28" duration="10" complete="0" expand="true">
+                <depend id="22" type="2" difference="0" hardness="Strong"/>
+                <depend id="32" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="22" uid="8d473a6542c44b5683c5f556904ad73d" name="Finalisation de la modélisation" color="#000000" meeting="true" start="2026-03-10" duration="0" complete="0" expand="true"/>
+        </task>
+        <task id="4" uid="8b360530eacc4aab8149f57f8ca3c94b" name="Phase de développement" color="#000000" meeting="false" start="2026-03-06" duration="38" complete="3" expand="true">
+            <depend id="38" type="2" difference="0" hardness="Strong"/>
+            <task id="23" uid="8066e891509d47bc9eb312db355cd9f5" name="Développement du frontend" color="#003300" meeting="false" start="2026-03-06" duration="30" complete="3" expand="true">
+                <task id="29" uid="6d255ec00571410ea3eaf6fb20aea0a8" name="Initialisation du projet Next.js" color="#009900" meeting="false" start="2026-03-06" duration="1" complete="100" expand="true">
+                    <depend id="25" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="25" uid="37809573ac6d43e1a194b2cd1d76265b" name="Conception des écrans : Login, Registration et Profile" color="#009900" meeting="false" start="2026-03-07" duration="3" complete="0" expand="true">
+                    <depend id="27" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="27" uid="e18628a2156f4722be9df5ba5e280c34" name="Conception des pages : Accueil, Contacts, À Propos," color="#009900" meeting="false" start="2026-03-10" duration="7" complete="0" expand="true">
+                    <depend id="26" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="26" uid="95479a1fdc324f53abcdf1531ebdf4ac" name="Conception du dashboard du SuperAdmin avec toutes les fonctionnalités CRUD" color="#009900" meeting="false" start="2026-03-17" duration="8" complete="0" expand="true">
+                    <depend id="28" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="28" uid="b81837217e554c7b965de4f66d95115b" name="Implémentation de l'UI/UX du propriétaire" color="#009900" meeting="false" start="2026-03-25" duration="5" complete="0" expand="true">
+                    <depend id="30" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="30" uid="fdf342474ea04fcab9926567f95f74ed" name="Implémentation de l'UI/UX du Client" color="#009900" meeting="false" start="2026-03-30" duration="6" complete="0" expand="true">
+                    <depend id="31" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="31" uid="79d7d54143e342feb9b84e552745c09c" name="Finalisation du frontend (Tests fonctionnels)" color="#003300" meeting="true" start="2026-04-05" duration="0" complete="0" expand="true"/>
+            </task>
+            <task id="24" uid="5513a32149d84f04b24bb6d51320a771" name="Développement du backend" meeting="false" start="2026-03-10" duration="34" complete="2" expand="true">
+                <task id="32" uid="2cc52e7dab4542278b7ea65c5dfca663" name="Initialisation du projet NestJS" color="#0066cc" meeting="false" start="2026-03-10" duration="1" complete="100" expand="true">
+                    <depend id="33" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="33" uid="7e3fa3634381446d844627b8352a4074" name="Conception des schemas SQL et Prisma" color="#0066cc" meeting="false" start="2026-03-11" duration="2" complete="0" expand="true">
+                    <depend id="34" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="34" uid="6d34584a615f46cd96c470ed2f1e4f7c" name="Implémentation des fonctionnalités liées à l'authentification" color="#0066cc" meeting="false" start="2026-03-13" duration="2" complete="0" expand="true">
+                    <depend id="35" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="35" uid="30e412f1465748d8bada68162d964bcd" name="Implémentation des fonctionnalités CRUD de la gestion des biens immobiliers" color="#0066cc" meeting="false" start="2026-03-15" duration="2" complete="0" expand="true">
+                    <depend id="36" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="36" uid="42701280572e49bbae7e0c903222b0a6" name="Développement des autres fonctionnalités liées à la gestion des logements etc..." color="#0066cc" meeting="false" start="2026-03-17" duration="27" complete="0" expand="true">
+                    <depend id="37" type="2" difference="0" hardness="Strong"/>
+                </task>
+                <task id="37" uid="0afe14e5f2b1463b903ca817994dc684" name="Finalisation du backend" color="#000000" meeting="true" start="2026-04-13" duration="0" complete="0" expand="true"/>
+            </task>
+        </task>
+        <task id="38" uid="e0d58c1b194c4a6a9579643eb5a35107" name="Test de validation" color="#0066cc" meeting="false" start="2026-04-13" duration="5" complete="0" expand="true">
+            <depend id="39" type="2" difference="0" hardness="Strong"/>
+        </task>
+        <task id="5" uid="fbbb89ec476441d984974540d65362cb" name="Phase de production" color="#003300" meeting="false" start="2026-04-18" duration="6" complete="0" expand="true">
+            <task id="39" uid="f2b8a7a286db48bbb97e40080954ed2c" name="Préparation de l'hébergement" color="#009900" meeting="false" start="2026-04-18" duration="2" complete="0" expand="true">
+                <depend id="40" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="40" uid="0f420156aa994120858a186a70304be8" name="Adaptation finale du code source et déploiement" color="#009900" meeting="false" start="2026-04-20" duration="3" complete="0" expand="true">
+                <depend id="41" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="41" uid="c47d979ed2d74090b30a46bb98cbfc92" name="Documentation du projet" color="#009900" meeting="false" start="2026-04-23" duration="1" complete="0" expand="true">
+                <depend id="42" type="2" difference="0" hardness="Strong"/>
+            </task>
+            <task id="42" uid="488dfbc365384ff18aff6ad71a76897c" name="Finalisation de mise en production" color="#003300" meeting="true" start="2026-04-24" duration="0" complete="0" expand="true">
+                <depend id="6" type="2" difference="0" hardness="Strong"/>
+            </task>
+        </task>
+        <task id="6" uid="7c1323c06ae34e039ca0dd9f12f6085c" name="Livraison" color="#cccc00" meeting="false" start="2026-04-24" duration="1" complete="0" expand="true"/>
+    </tasks>
+    <resources>
+        <resource id="0" name="ADJEODA Kokou" function="Default:1" contacts="calebadjeoda@gmail.com" phone=""/>
+        <resource id="1" name="ADJAKLI Komlan" function="2" contacts="" phone=""/>
+        <resource id="2" name="DJINADOU Akim" function="4" contacts="" phone=""/>
+        <resource id="3" name="ALI Abdousabour " function="3" contacts="" phone=""/>
+    </resources>
+    <allocations>
+        <allocation task-id="7" resource-id="0" function="Default:1" responsible="true" load="50.0"/>
+        <allocation task-id="8" resource-id="0" function="Default:1" responsible="true" load="20.0"/>
+        <allocation task-id="9" resource-id="0" function="Default:1" responsible="true" load="95.0"/>
+        <allocation task-id="11" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="12" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="14" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="15" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="16" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="17" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="21" resource-id="0" function="Default:1" responsible="true" load="40.0"/>
+        <allocation task-id="32" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="33" resource-id="0" function="Default:1" responsible="true" load="80.0"/>
+        <allocation task-id="34" resource-id="0" function="Default:1" responsible="true" load="60.0"/>
+        <allocation task-id="35" resource-id="0" function="Default:1" responsible="true" load="80.0"/>
+        <allocation task-id="36" resource-id="0" function="Default:1" responsible="true" load="80.0"/>
+        <allocation task-id="38" resource-id="0" function="Default:1" responsible="true" load="60.0"/>
+        <allocation task-id="39" resource-id="0" function="Default:1" responsible="true" load="50.0"/>
+        <allocation task-id="40" resource-id="0" function="Default:1" responsible="true" load="25.0"/>
+        <allocation task-id="41" resource-id="0" function="Default:1" responsible="true" load="50.0"/>
+        <allocation task-id="6" resource-id="0" function="Default:1" responsible="true" load="100.0"/>
+        <allocation task-id="7" resource-id="1" function="2" responsible="false" load="50.0"/>
+        <allocation task-id="8" resource-id="1" function="2" responsible="false" load="80.0"/>
+        <allocation task-id="9" resource-id="1" function="2" responsible="false" load="5.0"/>
+        <allocation task-id="19" resource-id="1" function="2" responsible="false" load="5.0"/>
+        <allocation task-id="20" resource-id="1" function="2" responsible="true" load="100.0"/>
+        <allocation task-id="21" resource-id="1" function="2" responsible="false" load="40.0"/>
+        <allocation task-id="29" resource-id="1" function="2" responsible="true" load="100.0"/>
+        <allocation task-id="25" resource-id="1" function="2" responsible="true" load="70.0"/>
+        <allocation task-id="27" resource-id="1" function="2" responsible="true" load="70.0"/>
+        <allocation task-id="26" resource-id="1" function="2" responsible="true" load="70.0"/>
+        <allocation task-id="28" resource-id="1" function="2" responsible="true" load="70.0"/>
+        <allocation task-id="30" resource-id="1" function="2" responsible="true" load="70.0"/>
+        <allocation task-id="38" resource-id="1" function="2" responsible="false" load="40.0"/>
+        <allocation task-id="39" resource-id="1" function="2" responsible="false" load="50.0"/>
+        <allocation task-id="40" resource-id="1" function="2" responsible="false" load="25.0"/>
+        <allocation task-id="41" resource-id="1" function="2" responsible="false" load="30.0"/>
+        <allocation task-id="21" resource-id="2" function="4" responsible="false" load="30.0"/>
+        <allocation task-id="33" resource-id="2" function="4" responsible="false" load="20.0"/>
+        <allocation task-id="34" resource-id="2" function="4" responsible="false" load="40.0"/>
+        <allocation task-id="35" resource-id="2" function="4" responsible="false" load="20.0"/>
+        <allocation task-id="36" resource-id="2" function="4" responsible="false" load="20.0"/>
+        <allocation task-id="40" resource-id="2" function="4" responsible="false" load="25.0"/>
+        <allocation task-id="41" resource-id="2" function="4" responsible="false" load="20.0"/>
+        <allocation task-id="25" resource-id="3" function="3" responsible="false" load="30.0"/>
+        <allocation task-id="27" resource-id="3" function="3" responsible="false" load="30.0"/>
+        <allocation task-id="26" resource-id="3" function="3" responsible="false" load="30.0"/>
+        <allocation task-id="28" resource-id="3" function="3" responsible="false" load="30.0"/>
+        <allocation task-id="30" resource-id="3" function="3" responsible="false" load="30.0"/>
+        <allocation task-id="40" resource-id="3" function="3" responsible="false" load="25.0"/>
+    </allocations>
+    <vacations/>
+    <previous/>
+    <roles roleset-name="Default"/>
+    <roles>
+        <role id="1" name="Chef de projet"/>
+        <role id="2" name="Chef de projet technique"/>
+        <role id="3" name="Developpeur frontend"/>
+        <role id="4" name="Développeur backend"/>
+        <role id="5" name="Designeur"/>
+        <role id="6" name="DBA"/>
+        <role id="7" name="Testeur"/>
+        <role id="8" name="Planificateur"/>
+        <role id="9" name="DevOps"/>
+    </roles>
+</project>
