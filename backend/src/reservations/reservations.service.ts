@@ -1,26 +1,49 @@
 import { Injectable } from '@nestjs/common';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class ReservationsService {
+  constructor(private readonly prisma: PrismaService) {}
+
   create(createReservationDto: CreateReservationDto) {
-    return 'This action adds a new reservation';
+    return this.prisma.reservation.create({
+      data: createReservationDto,
+    });
   }
 
   findAll() {
-    return `This action returns all reservations`;
+    return this.prisma.reservation.findMany({
+      include: {
+        locataire: true,
+        bien: true,
+        paiements: true,
+      },
+    });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} reservation`;
+  findOne(id: string) {
+    return this.prisma.reservation.findUnique({
+      where: { id },
+      include: {
+        locataire: true,
+        bien: true,
+        paiements: true,
+      },
+    });
   }
 
-  update(id: number, updateReservationDto: UpdateReservationDto) {
-    return `This action updates a #${id} reservation`;
+  update(id: string, updateReservationDto: UpdateReservationDto) {
+    return this.prisma.reservation.update({
+      where: { id },
+      data: updateReservationDto,
+    });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} reservation`;
+  remove(id: string) {
+    return this.prisma.reservation.delete({
+      where: { id },
+    });
   }
 }

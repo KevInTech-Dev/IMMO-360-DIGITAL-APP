@@ -6,9 +6,17 @@ import { UsersModule } from './users/users.module';
 import { BiensModule } from './biens/biens.module';
 import { ReservationsModule } from './reservations/reservations.module';
 import { PaiementsModule } from './paiements/paiements.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
-  imports: [PrismaModule, UsersModule, BiensModule, ReservationsModule, PaiementsModule],
+  imports: [
+    ConfigModule.forRoot({ isGlobal: true }),
+    PrismaModule,
+    UsersModule,
+    BiensModule,
+    ReservationsModule,
+    PaiementsModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

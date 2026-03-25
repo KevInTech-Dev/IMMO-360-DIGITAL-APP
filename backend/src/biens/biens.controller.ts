@@ -19,16 +19,16 @@ export class BiensController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.biensService.findOne(+id);
+    return this.biensService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateBienDto: UpdateBienDto) {
-    return this.biensService.update(+id, updateBienDto);
+    return this.biensService.update(id, updateBienDto);
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.biensService.remove(+id);
+    return this.biensService.remove(id);
   }
 }
