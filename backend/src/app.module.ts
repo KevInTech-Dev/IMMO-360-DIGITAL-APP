@@ -7,6 +7,7 @@ import { BiensModule } from './biens/biens.module';
 import { ReservationsModule } from './reservations/reservations.module';
 import { PaiementsModule } from './paiements/paiements.module';
 import { ConfigModule } from '@nestjs/config';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -16,6 +17,7 @@ import { ConfigModule } from '@nestjs/config';
     BiensModule,
     ReservationsModule,
     PaiementsModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

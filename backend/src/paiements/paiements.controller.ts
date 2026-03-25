@@ -1,9 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { PaiementsService } from './paiements.service';
 import { CreatePaiementDto } from './dto/create-paiement.dto';
 import { UpdatePaiementDto } from './dto/update-paiement.dto';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { RolesGuard } from '../common/guards/roles.guard';
+import { Roles } from '../common/decorators/roles.decorator';
+import { UserRole } from '../users/dto/create-user.dto';
 
 @Controller('paiements')
+@UseGuards(JwtAuthGuard, RolesGuard)
 export class PaiementsController {
   constructor(private readonly paiementsService: PaiementsService) {}
 
@@ -13,6 +18,7 @@ export class PaiementsController {
   }
 
   @Get()
+  @Roles(UserRole.ADMIN)
   findAll() {
     return this.paiementsService.findAll();
   }
