@@ -39,6 +39,7 @@ model User {
   password  String
   role      Role     @default(CLIENT)
   telephone String?
+  photoUrl  String?
   isActive  Boolean  @default(true)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

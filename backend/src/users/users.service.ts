@@ -1,12 +1,16 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from '../prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
+import { CloudinaryService } from '../common/cloudinary/cloudinary.service';
 
 @Injectable()
 export class UsersService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private prisma: PrismaService,
+    private cloudinary: CloudinaryService,
+  ) {}
 
   async create(createUserDto: CreateUserDto) {
     const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
@@ -30,20 +34,13 @@ export class UsersService {
     });
   }
 
-  findByEmail(email: string) {
-    return this.prisma.user.findUnique({
-      where: { email },
-    });
-  }
-
   async update(id: string, updateUserDto: UpdateUserDto) {
-    const data = { ...updateUserDto };
-    if (data.password) {
-      data.password = await bcrypt.hash(data.password, 10);
+    if (updateUserDto.password) {
+      updateUserDto.password = await bcrypt.hash(updateUserDto.password, 10);
     }
     return this.prisma.user.update({
       where: { id },
-      data,
+      data: updateUserDto,
     });
   }
 
@@ -51,6 +48,23 @@ export class UsersService {
     return this.prisma.user.update({
       where: { id },
       data: { isActive: false },
+    });
+  }
+
+  async findByEmail(email: string) {
+    return this.prisma.user.findUnique({
+      where: { email },
+    });
+  }
+
+  async updatePhoto(userId: string, file: Express.Multer.File) {
+    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+    if (!user) throw new NotFoundException('Utilisateur introuvable');
+
+    const result = await this.cloudinary.uploadImage(file, 'immo360/profiles');
+    return this.prisma.user.update({
+      where: { id: userId },
+      data: { photoUrl: (result as any).secure_url },
     });
   }
 }

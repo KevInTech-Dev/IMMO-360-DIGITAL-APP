@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?><project name="IMMO 360 DIGITAL" company="Projet_Tutoré" webLink="http://" view-date="2026-02-09" view-index="0" gantt-divider-location="318" resource-divider-location="300" version="3.3.3312" locale="fr_FR">
+<?xml version="1.0" encoding="UTF-8"?><project name="IMMO 360 DIGITAL" company="Projet_Tutoré" webLink="http://" view-date="2026-02-16" view-index="1" gantt-divider-location="303" resource-divider-location="300" version="3.3.3312" locale="fr_FR">
     <description><![CDATA[Le projet IMMO 360 DIGITAL vise à concevoir une plateforme web destinée à moderniser la
 gestion immobilière.]]></description>
-    <view zooming-state="default:4" id="gantt-chart">
-        <field id="tpd3" name="Nom" width="172" order="0"/>
-        <field id="tpd4" name="Date de début" width="65" order="1"/>
-        <field id="tpd5" name="Date de fin" width="65" order="2"/>
+    <view zooming-state="default:6" id="gantt-chart">
+        <field id="tpd3" name="Nom" width="163" order="0"/>
+        <field id="tpd4" name="Date de début" width="62" order="1"/>
+        <field id="tpd5" name="Date de fin" width="62" order="2"/>
         <field id="tpd15" name="Notes" width="20" order="3"/>
         <option id="taskLabelUp" value="advancement"/>
         <option id="taskLabelDown" value="name"/>
@@ -92,7 +92,7 @@ gestion immobilière.]]></description>
             </task>
             <task id="22" uid="8d473a6542c44b5683c5f556904ad73d" name="Finalisation de la modélisation" color="#000000" meeting="true" start="2026-03-10" duration="0" complete="0" expand="true"/>
         </task>
-        <task id="4" uid="8b360530eacc4aab8149f57f8ca3c94b" name="Phase de développement" color="#000000" meeting="false" start="2026-03-06" duration="38" complete="3" expand="true">
+        <task id="4" uid="8b360530eacc4aab8149f57f8ca3c94b" name="Phase de développement" color="#000000" meeting="false" start="2026-03-06" duration="38" complete="17" expand="true">
             <depend id="38" type="2" difference="0" hardness="Strong"/>
             <task id="23" uid="8066e891509d47bc9eb312db355cd9f5" name="Développement du frontend" color="#003300" meeting="false" start="2026-03-06" duration="30" complete="3" expand="true">
                 <task id="29" uid="6d255ec00571410ea3eaf6fb20aea0a8" name="Initialisation du projet Next.js" color="#009900" meeting="false" start="2026-03-06" duration="1" complete="100" expand="true">
@@ -115,20 +115,20 @@ gestion immobilière.]]></description>
                 </task>
                 <task id="31" uid="79d7d54143e342feb9b84e552745c09c" name="Finalisation du frontend (Tests fonctionnels)" color="#003300" meeting="true" start="2026-04-05" duration="0" complete="0" expand="true"/>
             </task>
-            <task id="24" uid="5513a32149d84f04b24bb6d51320a771" name="Développement du backend" meeting="false" start="2026-03-10" duration="34" complete="2" expand="true">
+            <task id="24" uid="5513a32149d84f04b24bb6d51320a771" name="Développement du backend" meeting="false" start="2026-03-10" duration="34" complete="29" expand="true">
                 <task id="32" uid="2cc52e7dab4542278b7ea65c5dfca663" name="Initialisation du projet NestJS" color="#0066cc" meeting="false" start="2026-03-10" duration="1" complete="100" expand="true">
                     <depend id="33" type="2" difference="0" hardness="Strong"/>
                 </task>
-                <task id="33" uid="7e3fa3634381446d844627b8352a4074" name="Conception des schemas SQL et Prisma" color="#0066cc" meeting="false" start="2026-03-11" duration="2" complete="0" expand="true">
+                <task id="33" uid="7e3fa3634381446d844627b8352a4074" name="Conception des schemas SQL et Prisma" color="#0066cc" meeting="false" start="2026-03-11" duration="2" complete="100" expand="true">
                     <depend id="34" type="2" difference="0" hardness="Strong"/>
                 </task>
-                <task id="34" uid="6d34584a615f46cd96c470ed2f1e4f7c" name="Implémentation des fonctionnalités liées à l'authentification" color="#0066cc" meeting="false" start="2026-03-13" duration="2" complete="0" expand="true">
+                <task id="34" uid="6d34584a615f46cd96c470ed2f1e4f7c" name="Implémentation des fonctionnalités liées à l'authentification" color="#0066cc" meeting="false" start="2026-03-13" duration="2" complete="100" expand="true">
                     <depend id="35" type="2" difference="0" hardness="Strong"/>
                 </task>
-                <task id="35" uid="30e412f1465748d8bada68162d964bcd" name="Implémentation des fonctionnalités CRUD de la gestion des biens immobiliers" color="#0066cc" meeting="false" start="2026-03-15" duration="2" complete="0" expand="true">
+                <task id="35" uid="30e412f1465748d8bada68162d964bcd" name="Implémentation des fonctionnalités CRUD de la gestion des biens immobiliers" color="#0066cc" meeting="false" start="2026-03-15" duration="2" complete="100" expand="true">
                     <depend id="36" type="2" difference="0" hardness="Strong"/>
                 </task>
-                <task id="36" uid="42701280572e49bbae7e0c903222b0a6" name="Développement des autres fonctionnalités liées à la gestion des logements etc..." color="#0066cc" meeting="false" start="2026-03-17" duration="27" complete="0" expand="true">
+                <task id="36" uid="42701280572e49bbae7e0c903222b0a6" name="Développement des autres fonctionnalités liées à la gestion des logements etc..." color="#0066cc" meeting="false" start="2026-03-17" duration="27" complete="11" expand="true">
                     <depend id="37" type="2" difference="0" hardness="Strong"/>
                 </task>
                 <task id="37" uid="0afe14e5f2b1463b903ca817994dc684" name="Finalisation du backend" color="#000000" meeting="true" start="2026-04-13" duration="0" complete="0" expand="true"/>
@@ -156,8 +156,6 @@ gestion immobilière.]]></description>
     <resources>
         <resource id="0" name="ADJEODA Kokou" function="Default:1" contacts="calebadjeoda@gmail.com" phone=""/>
         <resource id="1" name="ADJAKLI Komlan" function="2" contacts="" phone=""/>
-        <resource id="2" name="DJINADOU Akim" function="4" contacts="" phone=""/>
-        <resource id="3" name="ALI Abdousabour " function="3" contacts="" phone=""/>
     </resources>
     <allocations>
         <allocation task-id="7" resource-id="0" function="Default:1" responsible="true" load="50.0"/>
@@ -196,19 +194,6 @@ gestion immobilière.]]></description>
         <allocation task-id="39" resource-id="1" function="2" responsible="false" load="50.0"/>
         <allocation task-id="40" resource-id="1" function="2" responsible="false" load="25.0"/>
         <allocation task-id="41" resource-id="1" function="2" responsible="false" load="30.0"/>
-        <allocation task-id="21" resource-id="2" function="4" responsible="false" load="30.0"/>
-        <allocation task-id="33" resource-id="2" function="4" responsible="false" load="20.0"/>
-        <allocation task-id="34" resource-id="2" function="4" responsible="false" load="40.0"/>
-        <allocation task-id="35" resource-id="2" function="4" responsible="false" load="20.0"/>
-        <allocation task-id="36" resource-id="2" function="4" responsible="false" load="20.0"/>
-        <allocation task-id="40" resource-id="2" function="4" responsible="false" load="25.0"/>
-        <allocation task-id="41" resource-id="2" function="4" responsible="false" load="20.0"/>
-        <allocation task-id="25" resource-id="3" function="3" responsible="false" load="30.0"/>
-        <allocation task-id="27" resource-id="3" function="3" responsible="false" load="30.0"/>
-        <allocation task-id="26" resource-id="3" function="3" responsible="false" load="30.0"/>
-        <allocation task-id="28" resource-id="3" function="3" responsible="false" load="30.0"/>
-        <allocation task-id="30" resource-id="3" function="3" responsible="false" load="30.0"/>
-        <allocation task-id="40" resource-id="3" function="3" responsible="false" load="25.0"/>
     </allocations>
     <vacations/>
     <previous/>
