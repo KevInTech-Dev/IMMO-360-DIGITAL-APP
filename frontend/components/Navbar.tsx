@@ -10,11 +10,11 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navItems = [
-    { name: "ACCUEIL", href: "#" },
-    { name: "PRODUITS", href: "#" },
+    { name: "ACCUEIL", href: "/" },
+    { name: "PRODUITS", href: "/products" },
     { name: "PROMOTIONS", href: "#" },
     { name: "À PROPOS", href: "#" },
-    { name: "CONTACT", href: "#" },
+    { name: "CONTACT", href: "/contact" },
   ];
 
   return (

@@ -16,28 +16,31 @@ export default function LoginPage() {
               src="/Registration.png"
               alt="Login presentation"
               fill
-              className="object-cover"
+              className="object-cover object-bottom"
             />
             <div className="absolute inset-0 bg-slate-950/40" />
-            <div className="absolute inset-0 flex flex-col justify-center px-8 lg:px-12 text-white">
-              <span className="mb-6 text-sm tracking-[0.35em] uppercase text-slate-200 opacity-90">
-                Immo 360 Digital
+            <div className="absolute inset-0 flex flex-col justify-start items-center px-8 lg:px-12 pt-35 text-white">
+              <span className="mb-6 text-xl font-bold uppercase tracking-[0.02em] text-slate-100 sm:text-5xl">
+                IMMO 360 DIGITAL
               </span>
-              <h1 className="max-w-xl text-4xl font-semibold tracking-tight sm:text-5xl">
-                Connectez-vous et retrouvez tous vos biens, vos messages et vos réservations.
-              </h1>
-              <p className="mt-6 max-w-lg text-base leading-8 text-slate-200/90">
-                Accédez à votre espace personnel en toute simplicité, où que vous soyez.
+              <p className="max-w-xl text-base text-center font-medium leading-8 text-slate-100/90 sm:text-lg">
+                La plateforme qui révolutionne la gestion immobilière, simple, rapide et à 360°.
               </p>
             </div>
           </div>
 
           <div className="bg-white rounded-[2rem] border border-slate-200 p-8 shadow-2xl sm:p-10">
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-8">
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-4">
               <h2 className="text-3xl font-semibold text-slate-950">Connexion</h2>
               <Link href="/register" className="inline-flex items-center gap-2 text-sm font-medium text-[#1572D3] hover:text-[#0f5bb2]">
                 <ArrowLeft className="h-4 w-4" />
                 S’inscrire
+              </Link>
+            </div>
+
+            <div className="mb-6 text-sm text-slate-600">
+              <Link href="/" className="font-medium text-[#1572D3] hover:text-[#0f5bb2]">
+                Retour à l’accueil
               </Link>
             </div>
 

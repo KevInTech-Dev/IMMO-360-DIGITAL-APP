@@ -25,22 +25,22 @@ const Footer = () => {
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Actions Rapides</h3>
             <div className="space-y-2">
-              <Link href="#" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm block">
+              <Link href="/" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm block">
                 ➤ Accueil
               </Link>
-              <Link href="#" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm block">
+              <Link href="/#apropos" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm block">
                 ➤ À Propos
               </Link>
-              <Link href="#" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm block">
+              <Link href="/contact" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm block">
                 ➤ Contacts
               </Link>
-              <Link href="#" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm block">
+              <Link href="/products" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm block">
                 ➤ Location
               </Link>
-              <Link href="#" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm block">
+              <Link href="/products" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm block">
                 ➤ Achat
               </Link>
-              <Link href="#" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm block">
+              <Link href="/products" className="text-gray-300 hover:text-white transition-colors duration-200 text-sm block">
                 ➤ Vente
               </Link>
             </div>
