@@ -94,10 +94,21 @@ export default function ProductsPage() {
                       />
                     </div>
                     <div className="p-6">
-                      <div className="flex items-center justify-between gap-4 mb-4">
+                      <div className="flex items-start justify-between gap-4 mb-4">
                         <div>
-                          <h3 className="text-lg font-semibold text-slate-950">{product.type}</h3>
-                          <p className="text-sm text-slate-500">{product.rating} ★ ({product.reviews} vues)</p>
+                          <div className="flex flex-wrap items-center gap-3">
+                            <h3 className="text-lg font-semibold text-slate-950">{product.type}</h3>
+                            <span
+                              className={`rounded-full px-2.5 py-1 text-[11px] font-semibold ${
+                                product.status === "Disponible"
+                                  ? "bg-emerald-100 text-emerald-700"
+                                  : "bg-rose-100 text-rose-700"
+                              }`}
+                            >
+                              {product.status}
+                            </span>
+                          </div>
+                          <p className="mt-2 text-sm text-slate-500">{product.rating} ★ ({product.reviews} vues)</p>
                         </div>
                         <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-700">
                           {product.price}

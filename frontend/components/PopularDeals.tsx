@@ -8,7 +8,7 @@ const PopularDeals = () => {
       id: 1,
       image: "/assets/Rectangle 7 (1).png",
       title: "Villa Duplex",
-      price: "20 000/Mois",
+      price: "20 000 XOF /Mois",
       rating: 4.9,
       reviews: 3006,
       details: [
@@ -22,7 +22,7 @@ const PopularDeals = () => {
       id: 2,
       image: "/assets/Rectangle 7 (2).png",
       title: "Pièce studio",
-      price: "7 500/Mois",
+      price: "7 500 XOF /Mois",
       rating: 4.5,
       reviews: 2436,
       details: [
@@ -36,7 +36,7 @@ const PopularDeals = () => {
       id: 3,
       image: "/assets/Rectangle 7 (3).png",
       title: "Villa Duplex",
-      price: "22 000/Mois",
+      price: "22 000 XOF /Mois",
       rating: 4.8,
       reviews: 2006,
       details: [
@@ -50,7 +50,7 @@ const PopularDeals = () => {
       id: 4,
       image: "/assets/Rectangle 7 (5).png",
       title: "Appartement studio",
-      price: "9 000/Mois",
+      price: "9 000 XOF /Mois",
       rating: 4.2,
       reviews: 6402,
       details: [
@@ -106,19 +106,19 @@ const PopularDeals = () => {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-x-4 gap-y-3 mb-4 text-sm text-slate-600">
+                <div className="grid grid-cols-2 gap-2 mb-4 text-xs text-slate-600">
                   {property.details.map((detail, index) => {
                     const IconComponent = iconMap[detail.icon];
                     return (
                       <div key={index} className="flex items-center gap-2">
-                        <IconComponent className="h-4 w-4 text-[#1572D3]" />
+                        <IconComponent className="h-3.5 w-3.5 text-[#1572D3]" />
                         <span>{detail.label}</span>
                       </div>
                     );
                   })}
                 </div>
 
-                <Link href="/products" className="inline-flex w-full items-center justify-center rounded-lg bg-[#1572D3] px-4 py-3 text-sm font-semibold text-white transition hover:bg-blue-600 hover:shadow-lg">
+                <Link href={`/products/${property.id}`} className="inline-flex w-full items-center justify-center rounded-lg bg-[#1572D3] px-4 py-3 text-sm font-semibold text-white transition hover:bg-blue-600 hover:shadow-lg">
                   Louer Maintenant
                   <ArrowRight className="w-4 h-4 ml-2" />
                 </Link>

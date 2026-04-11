@@ -26,18 +26,8 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
     <main className="min-h-screen bg-white pt-28">
       <Navbar />
 
-      <div className="max-w-[1440px] mx-auto px-6 py-16 lg:px-8">
-        <div className="mb-10">
-          <Link
-            href="/products"
-            className="inline-flex items-center gap-2 text-sm font-medium text-[#1572D3] hover:text-[#0f5bb2]"
-          >
-            <ArrowLeft className="h-4 w-4" />
-            Retour aux produits
-          </Link>
-        </div>
-
-        <div className="grid gap-12 xl:grid-cols-[1.25fr_0.85fr]">
+      <div className="max-w-7xl mx-auto px-4 py-14 sm:px-6 lg:px-8">
+        <div className="grid gap-16 xl:grid-cols-[1.2fr_0.8fr]">
           <div className="space-y-8">
             <div className="overflow-hidden rounded-[2rem] border border-slate-200 bg-slate-50 shadow-sm">
               <div className="relative aspect-[16/10] w-full">
@@ -50,26 +40,26 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               </div>
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-4">
-              <div className="flex items-center gap-3 rounded-3xl border border-slate-200 bg-white p-4">
-                <Bed className="h-5 w-5 text-[#1572D3]" />
-                <span className="text-sm font-semibold text-slate-800">{product.rooms}</span>
+            <div className="grid gap-3 sm:grid-cols-4">
+              <div className="flex items-center gap-2 rounded-2xl border border-slate-200 bg-white p-3 text-xs text-slate-700">
+                <Bed className="h-4 w-4 text-[#1572D3]" />
+                <span>{product.rooms}</span>
               </div>
-              <div className="flex items-center gap-3 rounded-3xl border border-slate-200 bg-white p-4">
-                <Bath className="h-5 w-5 text-[#1572D3]" />
-                <span className="text-sm font-semibold text-slate-800">{product.bath}</span>
+              <div className="flex items-center gap-2 rounded-2xl border border-slate-200 bg-white p-3 text-xs text-slate-700">
+                <Bath className="h-4 w-4 text-[#1572D3]" />
+                <span>{product.bath}</span>
               </div>
-              <div className="flex items-center gap-3 rounded-3xl border border-slate-200 bg-white p-4">
-                <Coffee className="h-5 w-5 text-[#1572D3]" />
-                <span className="text-sm font-semibold text-slate-800">{product.kitchen}</span>
+              <div className="flex items-center gap-2 rounded-2xl border border-slate-200 bg-white p-3 text-xs text-slate-700">
+                <Coffee className="h-4 w-4 text-[#1572D3]" />
+                <span>{product.kitchen}</span>
               </div>
-              <div className="flex items-center gap-3 rounded-3xl border border-slate-200 bg-white p-4">
-                <Car className="h-5 w-5 text-[#1572D3]" />
-                <span className="text-sm font-semibold text-slate-800">{product.parking}</span>
+              <div className="flex items-center gap-2 rounded-2xl border border-slate-200 bg-white p-3 text-xs text-slate-700">
+                <Car className="h-4 w-4 text-[#1572D3]" />
+                <span>{product.parking}</span>
               </div>
             </div>
 
-            <div className="rounded-[1.5rem] border border-slate-200 bg-white p-8 shadow-sm">
+            <div className="rounded-[1.5rem] border border-slate-200 bg-white p-6 shadow-sm">
               <h2 className="text-2xl font-semibold text-slate-950 mb-4">Autres détails</h2>
               <div className="grid gap-4 text-sm text-slate-700">
                 <div className="space-y-1">
@@ -106,7 +96,18 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
             <div className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm">
               <div className="space-y-4">
                 <div>
-                  <h1 className="text-3xl font-semibold text-slate-950">{product.type}</h1>
+                  <div className="flex flex-wrap items-center gap-3">
+                    <h1 className="text-3xl font-semibold text-slate-950">{product.type}</h1>
+                    <span
+                      className={`rounded-full px-3 py-1 text-xs font-semibold ${
+                        product.status === "Disponible"
+                          ? "bg-emerald-100 text-emerald-700"
+                          : "bg-rose-100 text-rose-700"
+                      }`}
+                    >
+                      {product.status}
+                    </span>
+                  </div>
                   <p className="mt-2 text-lg text-slate-600">{product.price}</p>
                   <p className="mt-2 text-sm text-[#B42E2E]">* Prix des extras non inclus.</p>
                 </div>
@@ -160,31 +161,30 @@ export default async function ProductDetailPage({ params }: { params: Promise<{ 
               </div>
 
               <div className="space-y-4">
-                <label className="flex items-start gap-3 text-sm text-slate-700">
-                  <span className="mt-1 inline-flex h-5 w-5 items-center justify-center rounded-md border border-slate-300 bg-white text-slate-900">
-                    <CheckSquare className="h-4 w-4" />
-                  </span>
+                <label className="flex items-center gap-3 text-sm text-slate-700">
+                  <input
+                    type="checkbox"
+                    className="h-4 w-4 rounded border-slate-300 text-[#1572D3] focus:ring-[#1572D3]"
+                  />
                   <span>J'ai lu et accepté les conditions générales d'utilisation, notamment la mention relative à la protection des données personnelles.</span>
                 </label>
 
-                <label className="flex items-start gap-3 text-sm text-slate-700">
-                  <span className="mt-1 inline-flex h-5 w-5 items-center justify-center rounded-md border border-slate-300 bg-white text-slate-900">
-                    <CheckSquare className="h-4 w-4" />
-                  </span>
+                <label className="flex items-center gap-3 text-sm text-slate-700">
+                  <input
+                    type="checkbox"
+                    className="h-4 w-4 rounded border-slate-300 text-[#1572D3] focus:ring-[#1572D3]"
+                  />
                   <span>Souhaitez-vous être informé de l'actualité et des événements importants concernant AIRCAR.</span>
                 </label>
               </div>
 
-              <button className="mt-2 inline-flex w-full items-center justify-center rounded-2xl bg-[#1572D3] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#0f5bb2]">
+              <button className="mt-4 inline-flex w-full items-center justify-center rounded-2xl bg-[#1572D3] px-6 py-3 text-sm font-semibold text-white transition hover:bg-[#0f5bb2]">
                 Je réserve
               </button>
-            </div>
 
-            <div className="rounded-[2rem] border border-slate-200 bg-white p-8 shadow-sm">
-              <div className="flex items-center gap-3 text-sm text-slate-700">
-                <Phone className="h-4 w-4 text-[#1572D3]" />
-                <span>Besoin d’aide ? Contactez-nous directement.</span>
-              </div>
+              <p className="mt-4 text-sm text-slate-600">
+                Besoin d’aide ? <Link href="/contact" className="font-semibold text-[#1572D3] hover:text-[#0f5bb2]">Contactez-nous</Link>.
+              </p>
             </div>
           </aside>
         </div>
