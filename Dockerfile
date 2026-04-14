@@ -1,8 +1,9 @@
-FROM node:22-alpine
+# Stage 1: Builder
+FROM node:22-alpine AS builder
 
 WORKDIR /app
 
-# Copy package files from backend
+# Copy all necessary files from backend
 COPY backend/package*.json ./
 COPY backend/prisma ./prisma
 COPY backend/tsconfig*.json ./
@@ -10,7 +11,7 @@ COPY backend/nest-cli.json ./
 COPY backend/prisma.config.ts ./
 COPY backend/src ./src
 
-# Install dependencies
+# Install all dependencies (including dev)
 RUN npm install
 
 # Generate Prisma Client
@@ -19,8 +20,22 @@ RUN npx prisma generate
 # Build the application
 RUN npm run build
 
+# Stage 2: Runtime
+FROM node:22-alpine
+
+WORKDIR /app
+
+# Copy package files
+COPY backend/package*.json ./
+COPY backend/prisma ./prisma
+COPY backend/prisma.config.ts ./
+
 # Install production dependencies only
-RUN npm ci --production
+RUN npm ci --omit=dev
+
+# Copy compiled application from builder
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/node_modules/@prisma ./node_modules/@prisma
 
 # Expose port
 EXPOSE 3000
