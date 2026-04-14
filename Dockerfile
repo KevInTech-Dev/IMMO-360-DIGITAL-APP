@@ -20,6 +20,10 @@ RUN npx prisma generate
 # Build the application
 RUN npm run build
 
+# Debug: List what was built
+RUN ls -la dist/ || echo "dist directory not found"
+RUN ls -la dist/main* || echo "main files not found"
+
 # Stage 2: Runtime
 FROM node:22-alpine
 
@@ -35,6 +39,8 @@ RUN npm ci --omit=dev
 
 # Copy compiled application from builder
 COPY --from=builder /app/dist ./dist
+
+# Copy Prisma Client
 COPY --from=builder /app/node_modules/@prisma ./node_modules/@prisma
 
 # Expose port
