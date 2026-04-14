@@ -1,0 +1,10 @@
+services:
+  - type: web
+    name: immo-360-backend
+    env: node
+    plan: free
+    buildCommand: npm install && npm run build && npx prisma migrate deploy
+    startCommand: npm run start:prod
+    envVars:
+      - key: NODE_ENV
+        value: production
