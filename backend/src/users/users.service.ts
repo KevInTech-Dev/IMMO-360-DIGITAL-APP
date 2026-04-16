@@ -57,7 +57,7 @@ export class UsersService {
     });
   }
 
-  async updatePhoto(userId: string, file: Express.Multer.File) {
+  async updatePhoto(userId: string, file: { buffer: Buffer; mimetype?: string; originalname?: string }) {
     const user = await this.prisma.user.findUnique({ where: { id: userId } });
     if (!user) throw new NotFoundException('Utilisateur introuvable');
 

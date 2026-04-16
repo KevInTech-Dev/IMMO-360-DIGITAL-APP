@@ -3,12 +3,18 @@ import { v2, UploadApiErrorResponse, UploadApiResponse } from 'cloudinary';
 // @ts-ignore - buffer-to-stream is CommonJS
 import toStream from 'buffer-to-stream';
 
+interface FileUpload {
+  buffer: Buffer;
+  mimetype?: string;
+  originalname?: string;
+}
+
 @Injectable()
 export class CloudinaryService {
   private readonly logger = new Logger(CloudinaryService.name);
 
   async uploadImage(
-    file: Express.Multer.File,
+    file: FileUpload,
     folder: string = 'immo360/profiles',
   ): Promise<UploadApiResponse | UploadApiErrorResponse> {
     return new Promise((resolve, reject) => {

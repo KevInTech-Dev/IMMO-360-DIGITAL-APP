@@ -77,7 +77,8 @@ export class PaydunyaService {
       });
       return response;
     } catch (error) {
-      this.logger.error(`Erreur PayDunya: ${error.message}`);
+      const message = error instanceof Error ? error.message : String(error);
+      this.logger.error(`Erreur PayDunya: ${message}`);
       throw error;
     }
   }
