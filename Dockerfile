@@ -31,12 +31,21 @@ WORKDIR /app
 COPY backend/package*.json ./
 COPY backend/prisma ./prisma
 
-# Install production dependencies only
-RUN npm ci --omit=dev
+# Install ALL dependencies (needed for prisma generate)
+RUN npm ci
 
 # Copy compiled application from builder
 COPY --from=builder /app/dist ./dist
+
+# Copy Prisma generated client from builder
+COPY --from=builder /app/node_modules/.prisma ./.prisma
 COPY --from=builder /app/node_modules/@prisma ./node_modules/@prisma
+
+# Regenerate Prisma Client in runtime (critical for Prisma 7 with adapter)
+RUN npx prisma generate
+
+# Remove development dependencies to reduce image size
+RUN npm prune --production
 
 # Expose port
 EXPOSE 3000
