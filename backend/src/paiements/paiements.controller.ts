@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Logger } from '@nestjs/common';
 import { PaiementsService } from './paiements.service';
 import { CreatePaiementDto } from './dto/create-paiement.dto';
 import { UpdatePaiementDto } from './dto/update-paiement.dto';
@@ -7,8 +7,17 @@ import { RolesGuard } from '../common/guards/roles.guard';
 import { Roles } from '../common/decorators/roles.decorator';
 import { UserRole } from '../users/dto/create-user.dto';
 
+interface PayDunyaCallback {
+  status?: string;
+  token?: string;
+  amount?: number;
+  [key: string]: unknown;
+}
+
 @Controller('paiements')
 export class PaiementsController {
+  private readonly logger = new Logger(PaiementsController.name);
+
   constructor(private readonly paiementsService: PaiementsService) {}
 
   @Post()
@@ -18,10 +27,10 @@ export class PaiementsController {
   }
 
   @Post('callback') // IPN de PayDunya
-  async handleCallback(@Body() body: any) {
+  async handleCallback(@Body() body: PayDunyaCallback) {
     // Logique IPN : Vérifier le token et mettre à jour le statut
     // Dans une implémentation réelle, on vérifierait l'IPN de PayDunya
-    console.log('IPN PayDunya reçu:', body);
+    this.logger.log(`PayDunya IPN received: ${JSON.stringify(body)}`);
     return { status: 'success' };
   }
 

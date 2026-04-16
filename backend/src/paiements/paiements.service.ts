@@ -1,11 +1,18 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, Logger } from '@nestjs/common';
 import { CreatePaiementDto } from './dto/create-paiement.dto';
 import { UpdatePaiementDto } from './dto/update-paiement.dto';
 import { PrismaService } from '../prisma/prisma.service';
 import { PaydunyaService } from './paydunya.service';
 
+interface PaydunyaInvoiceResponse {
+  token?: string;
+  [key: string]: unknown;
+}
+
 @Injectable()
 export class PaiementsService {
+  private readonly logger = new Logger(PaiementsService.name);
+
   constructor(
     private readonly prisma: PrismaService,
     private readonly paydunya: PaydunyaService,
@@ -23,17 +30,22 @@ export class PaiementsService {
     }
 
     // 2. Créer la facture PayDunya
-    const paydunyaInvoice = await this.paydunya.createInvoice(
+    const paydunyaInvoice = (await this.paydunya.createInvoice(
       reservation,
       createPaiementDto.montant || reservation.montantTotal,
-    );
+    )) as PaydunyaInvoiceResponse;
+
+    const token = paydunyaInvoice?.token;
+    if (!token) {
+      this.logger.warn('PayDunya token not found in invoice response');
+    }
 
     // 3. Enregistrer le paiement en attente
     return this.prisma.paiement.create({
       data: {
         ...createPaiementDto,
         montant: createPaiementDto.montant || reservation.montantTotal,
-        referencePayDunya: (paydunyaInvoice as any).token,
+        referencePayDunya: token || undefined,
         statut: 'EN_ATTENTE',
       },
     });

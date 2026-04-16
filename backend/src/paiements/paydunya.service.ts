@@ -1,6 +1,24 @@
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-const paydunya = require('paydunya');
+import { Reservation } from '../reservations/entities/reservation.entity';
+// @ts-ignore - paydunya is a CommonJS module
+import * as paydunya from 'paydunya';
+
+interface PaydunyaSetup {
+  masterKey: string;
+  privateKey: string;
+  publicKey: string;
+  token: string;
+  mode: string;
+}
+
+interface PaydunyaStore {
+  name: string;
+  tagline: string;
+  phoneNumber: string;
+  postalAddress: string;
+  logoUrl: string;
+}
 
 @Injectable()
 export class PaydunyaService {
@@ -26,7 +44,7 @@ export class PaydunyaService {
     });
   }
 
-  async createInvoice(reservation: any, amount: number) {
+  async createInvoice(reservation: any, amount: number): Promise<any> {
     const invoice = new paydunya.CheckoutInvoice(this.setup, this.store);
     
     invoice.addItem(

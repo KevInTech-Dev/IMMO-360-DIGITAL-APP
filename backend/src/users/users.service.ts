@@ -62,9 +62,15 @@ export class UsersService {
     if (!user) throw new NotFoundException('Utilisateur introuvable');
 
     const result = await this.cloudinary.uploadImage(file, 'immo360/profiles');
+    
+    const secureUrl = 'secure_url' in result ? result.secure_url : null;
+    if (!secureUrl) {
+      throw new Error('Échec du téléchargement sur Cloudinary');
+    }
+
     return this.prisma.user.update({
       where: { id: userId },
-      data: { photoUrl: (result as any).secure_url },
+      data: { photoUrl: secureUrl },
     });
   }
 }
