@@ -38,7 +38,7 @@ describe('PaiementsService', () => {
     montantTotal: 50000,
     dateDebut: new Date('2026-05-01'),
     dateFin: new Date('2026-05-10'),
-    statut: 'EN_ATTENTE',
+    statut: 'ATTENTE_PAIEMENT',
     bien: { id: 'bien-1', titre: 'Appartement' },
     locataire: { id: 'user-2', nom: 'John Doe' },
     paiements: [],
@@ -126,7 +126,7 @@ describe('PaiementsService', () => {
 
       mockPrismaService.reservation.findUnique.mockResolvedValue({
         ...mockReservation,
-        paiements: [{ ...mockPaiement, statut: 'CONFIRMEE' }],
+        paiements: [{ ...mockPaiement, statut: 'SUCCES' }],
       });
 
       await expect(service.create(createDto as any)).rejects.toThrow(
@@ -147,12 +147,12 @@ describe('PaiementsService', () => {
         reservation: mockReservation,
       });
 
-      const updatedPaiement = { ...mockPaiement, statut: 'CONFIRMEE' };
+      const updatedPaiement = { ...mockPaiement, statut: 'SUCCES' };
       mockPrismaService.paiement.update.mockResolvedValue(updatedPaiement);
 
       const result = await service.handlePaydunyaCallback(payload);
 
-      expect(result.statut).toBe('CONFIRMEE');
+      expect(result.statut).toBe('SUCCES');
       expect(mockPrismaService.reservation.update).toHaveBeenCalledWith(
         expect.objectContaining({
           where: { id: 'res-1' },
@@ -172,12 +172,12 @@ describe('PaiementsService', () => {
         reservation: mockReservation,
       });
 
-      const updatedPaiement = { ...mockPaiement, statut: 'ECHOUEE' };
+      const updatedPaiement = { ...mockPaiement, statut: 'ECHEC' };
       mockPrismaService.paiement.update.mockResolvedValue(updatedPaiement);
 
       const result = await service.handlePaydunyaCallback(payload);
 
-      expect(result.statut).toBe('ECHOUEE');
+      expect(result.statut).toBe('ECHEC');
     });
   });
 
@@ -206,7 +206,7 @@ describe('PaiementsService', () => {
 
       mockPrismaService.paiement.groupBy.mockResolvedValue([
         {
-          statut: 'CONFIRMEE',
+          statut: 'SUCCES',
           _sum: { montant: 100000 },
           _count: 2,
         },

@@ -169,8 +169,9 @@ export class PaiementsService {
 
       return updatedPaiement;
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error(
-        `Erreur lors du traitement du callback PayDunya: ${error.message}`,
+        `Erreur lors du traitement du callback PayDunya: ${errorMessage}`,
       );
       throw error;
     }
@@ -221,7 +222,8 @@ export class PaiementsService {
 
       return updatedPaiement;
     } catch (error) {
-      this.logger.error(`Erreur lors de la confirmation du paiement: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      this.logger.error(`Erreur lors de la confirmation du paiement: ${errorMessage}`);
       throw error;
     }
   }
@@ -261,7 +263,8 @@ export class PaiementsService {
 
       return paiements;
     } catch (error) {
-      this.logger.error(`Erreur lors de la récupération des paiements: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      this.logger.error(`Erreur lors de la récupération des paiements: ${errorMessage}`);
       throw error;
     }
   }
@@ -286,7 +289,8 @@ export class PaiementsService {
 
       return paiement;
     } catch (error) {
-      this.logger.error(`Erreur lors de la récupération du paiement: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      this.logger.error(`Erreur lors de la récupération du paiement: ${errorMessage}`);
       throw error;
     }
   }
@@ -318,8 +322,8 @@ export class PaiementsService {
 
       return updatedPaiement;
     } catch (error) {
-      
-      this.logger.error(`Erreur lors de la mise à jour du paiement: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      this.logger.error(`Erreur lors de la mise à jour du paiement: ${errorMessage}`);
       throw error;
     }
   }
