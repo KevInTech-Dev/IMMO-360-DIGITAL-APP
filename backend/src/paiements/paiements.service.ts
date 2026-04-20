@@ -318,6 +318,7 @@ export class PaiementsService {
 
       return updatedPaiement;
     } catch (error) {
+      
       this.logger.error(`Erreur lors de la mise à jour du paiement: ${error.message}`);
       throw error;
     }
@@ -348,7 +349,8 @@ export class PaiementsService {
 
       return { success: true, message: 'Paiement supprimé avec succès' };
     } catch (error) {
-      this.logger.error(`Erreur lors de la suppression du paiement: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      this.logger.error(`Erreur lors de la suppression du paiement: ${errorMessage}`);
       throw error;
     }
   }
@@ -382,8 +384,9 @@ export class PaiementsService {
         byStatus,
       };
     } catch (error) {
+      const errorMessage = error instanceof Error ? error.message : String(error);
       this.logger.error(
-        `Erreur lors de la récupération des statistiques: ${error.message}`,
+        `Erreur lors de la récupération des statistiques: ${errorMessage}`,
       );
       throw error;
     }
