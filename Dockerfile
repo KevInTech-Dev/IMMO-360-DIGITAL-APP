@@ -11,7 +11,7 @@ COPY backend/nest-cli.json ./
 COPY backend/src ./src
 
 # Install all dependencies (including dev)
-RUN npm install
+RUN npm install --legacy-peer-deps
 
 # Generate Prisma Client
 RUN npx prisma generate
@@ -32,7 +32,7 @@ COPY backend/package*.json ./
 COPY backend/prisma ./prisma
 
 # Install ALL dependencies (needed for prisma generate)
-RUN npm ci
+RUN npm ci --legacy-peer-deps
 
 # Copy compiled application from builder
 COPY --from=builder /app/dist ./dist
