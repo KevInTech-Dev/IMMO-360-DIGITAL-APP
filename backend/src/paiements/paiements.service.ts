@@ -78,7 +78,8 @@ export class PaiementsService {
           this.logger.warn('PayDunya token not found in invoice response');
         }
       } catch (error) {
-        this.logger.error(`Erreur lors de la création PayDunya: ${error.message}`);
+        const errorMessage = error instanceof Error ? error.message : String(error);
+        this.logger.error(`Erreur lors de la création PayDunya: ${errorMessage}`);
         throw new BadRequestException(
           'Impossible de créer la facture de paiement. Veuillez réessayer.',
         );
@@ -114,7 +115,8 @@ export class PaiementsService {
           : undefined,
       };
     } catch (error) {
-      this.logger.error(`Erreur lors de la création du paiement: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      this.logger.error(`Erreur lors de la création du paiement: ${errorMessage}`);
       throw error;
     }
   }

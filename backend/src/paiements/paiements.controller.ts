@@ -70,8 +70,9 @@ export class PaiementsController {
       this.logger.warn(`Callback PayDunya invalide: ${JSON.stringify(body)}`);
       return { status: 'invalid_payload' };
     } catch (error) {
-      this.logger.error(`Erreur lors du traitement du callback PayDunya: ${error.message}`);
-      return { status: 'error', message: error.message };
+      const errorMessage = error instanceof Error ? error.message : String(error);
+      this.logger.error(`Erreur lors du traitement du callback PayDunya: ${errorMessage}`);
+      return { status: 'error', message: errorMessage };
     }
   }
 
