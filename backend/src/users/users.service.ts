@@ -1,5 +1,5 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
+import { CreateUserDto, UserRole } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { PrismaService } from '../prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
@@ -17,6 +17,7 @@ export class UsersService {
     return this.prisma.user.create({
       data: {
         ...createUserDto,
+        role: UserRole.CLIENT, // Par défaut, tous les nouveaux utilisateurs sont des clients
         password: hashedPassword,
       },
     });

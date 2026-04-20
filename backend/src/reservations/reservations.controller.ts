@@ -1,4 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UseGuards,
+  Query,
+} from '@nestjs/common';
+import { ApiTags, ApiBearerAuth, ApiQuery } from '@nestjs/swagger';
 import { ReservationsService } from './reservations.service';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
@@ -6,35 +17,72 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../common/guards/roles.guard';
 import { Roles } from '../common/decorators/roles.decorator';
 import { UserRole } from '../users/dto/create-user.dto';
+import { CurrentUser } from '../common/decorators/current-user.decorator';
 
+@ApiTags('Reservations')
+@ApiBearerAuth('access-token')
 @Controller('reservations')
 @UseGuards(JwtAuthGuard, RolesGuard)
 export class ReservationsController {
   constructor(private readonly reservationsService: ReservationsService) {}
 
   @Post()
-  create(@Body() createReservationDto: CreateReservationDto) {
+  @Roles(UserRole.CLIENT, UserRole.PROPRIETAIRE)
+  async create(@Body() createReservationDto: CreateReservationDto) {
     return this.reservationsService.create(createReservationDto);
   }
 
   @Get()
-  findAll() {
-    return this.reservationsService.findAll();
+  @ApiQuery({ name: 'bienId', required: false, description: 'Filter by property ID' })
+  @ApiQuery({
+    name: 'locataireId',
+    required: false,
+    description: 'Filter by tenant ID',
+  })
+  @ApiQuery({
+    name: 'statut',
+    required: false,
+    enum: ['EN_ATTENTE', 'CONFIRMEE', 'COMPLETEE', 'ANNULEE'],
+    description: 'Filter by reservation status',
+  })
+  async findAll(
+    @Query('bienId') bienId?: string,
+    @Query('locataireId') locataireId?: string,
+    @Query('statut') statut?: string,
+  ) {
+    return this.reservationsService.findAll({
+      bienId,
+      locataireId,
+      statut,
+    });
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  async findOne(@Param('id') id: string) {
     return this.reservationsService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateReservationDto: UpdateReservationDto) {
+  @Roles(UserRole.CLIENT, UserRole.PROPRIETAIRE, UserRole.ADMIN)
+  async update(
+    @Param('id') id: string,
+    @Body() updateReservationDto: UpdateReservationDto,
+  ) {
     return this.reservationsService.update(id, updateReservationDto);
+  }
+
+  @Patch(':id/cancel')
+  @Roles(UserRole.CLIENT, UserRole.PROPRIETAIRE, UserRole.ADMIN)
+  async cancel(
+    @Param('id') id: string,
+    @Query('reason') reason?: string,
+  ) {
+    return this.reservationsService.cancel(id, reason);
   }
 
   @Delete(':id')
   @Roles(UserRole.ADMIN, UserRole.PROPRIETAIRE)
-  remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string) {
     return this.reservationsService.remove(id);
   }
 }
