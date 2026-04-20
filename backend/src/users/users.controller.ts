@@ -28,7 +28,7 @@ export class UsersController {
   @ApiBearerAuth('access-token')
   @ApiOperation({ summary: 'Télécharger une photo de profil' })
   @UseInterceptors(FileInterceptor('file'))
-  uploadPhoto(@Param('id') id: string, @UploadedFile() file: Express.Multer.File) {
+  uploadPhoto(@Param('id') id: string, @UploadedFile() file: any) {
     return this.usersService.updatePhoto(id, file);
   }
 
