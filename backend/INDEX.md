@@ -278,7 +278,7 @@ helmet@^7.1.0                - Security headers
 - Improvements: Detailed
 - Summary: Executive ready
 - Quick checklist: Available
-✓ Scripts: Linux, Mac, Windows
+- Scripts: Linux, Mac, Windows
 ```
 
 ---
