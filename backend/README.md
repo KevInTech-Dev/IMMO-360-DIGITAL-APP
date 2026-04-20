@@ -26,11 +26,11 @@
 
 ### Key Middleware
 ```
-✓ Helmet                 - Security headers
-✓ Express-rate-limit     - DDoS protection (100/15min)
-✓ CORS                   - Cross-origin configuration
-✓ Global Exception Filter - Unified error handling
-✓ Input Validation       - Strict whitelist enforcement
+- Helmet                 - Security headers
+- Express-rate-limit     - DDoS protection (100/15min)
+- CORS                   - Cross-origin configuration
+- Global Exception Filter - Unified error handling
+- Input Validation       - Strict whitelist enforcement
 ```
 
 ---
@@ -221,19 +221,19 @@ Status: 429 Too Many Requests
 
 ### Input Validation
 ```
-✓ Whitelist - Uniquement champs définis acceptés
-✓ Type checking - Validation des types stricts
-✓ Date validation - Formats ISO 8601 requis
-✓ Email validation - Format email valide
-✓ Forbidden fields - Champs supplémentaires rejetés
+- Whitelist - Uniquement champs définis acceptés
+- Type checking - Validation des types stricts
+- Date validation - Formats ISO 8601 requis
+- Email validation - Format email valide
+- Forbidden fields - Champs supplémentaires rejetés
 ```
 
 ### Reservation Validation ENHANCED
 ```
-✓ dateDebut dans le futur
-✓ dateFin > dateDebut
-✓ Durée: 1-365 jours
-✓ Pas de chevauchement avec réservations EN_ATTENTE ou CONFIRMEE
+- dateDebut dans le futur
+- dateFin > dateDebut
+- Durée: 1-365 jours
+- Pas de chevauchement avec réservations EN_ATTENTE ou CONFIRMEE
 ```
 
 ### Error Responses
@@ -261,9 +261,9 @@ npm run test:watch             # Watch mode
 
 ### Coverage Actuelle
 ```
-✓ Reservations Service: ~70% coverage
-✓ Payments Service:     ~65% coverage
-✓ Total:               ~60% coverage (logiques critiques)
+- Reservations Service: ~70% coverage
+- Payments Service:     ~65% coverage
+- Total:               ~60% coverage (logiques critiques)
 ```
 
 ### Tests Inclus
