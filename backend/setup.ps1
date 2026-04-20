@@ -3,19 +3,13 @@
 
 $ErrorActionPreference = "Stop"
 
-# Codes de couleur
-$Success = "Green"
-$Error = "Red"
-$Info = "Cyan"
-$Warning = "Yellow"
-
 Write-Host ""
 Write-Host "════════════════════════════════════════════════════════════" -ForegroundColor Cyan
 Write-Host "  IMMO 360 DIGITAL - Script d'installation et de test" -ForegroundColor Cyan
 Write-Host "════════════════════════════════════════════════════════════" -ForegroundColor Cyan
 Write-Host ""
 
-function Print-Section {
+function Write-Section {
     param([string]$Title)
     Write-Host ""
     Write-Host "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" -ForegroundColor Cyan
@@ -23,29 +17,29 @@ function Print-Section {
     Write-Host "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" -ForegroundColor Cyan
 }
 
-function Print-Success {
+function Write-Success {
     param([string]$Message)
     Write-Host "[OK] $Message" -ForegroundColor Green
 }
 
-function Print-Error {
+function Write-ScriptError {
     param([string]$Message)
     Write-Host "[ERREUR] $Message" -ForegroundColor Red
 }
 
-function Print-Info {
+function Write-ScriptInfo {
     param([string]$Message)
     Write-Host "[INFO] $Message" -ForegroundColor Cyan
 }
 
-function Print-Warning {
+function Write-ScriptWarning {
     param([string]$Message)
     Write-Host "[ATTENTION] $Message" -ForegroundColor Yellow
 }
 
 # Verifier si on est dans le bon repertoire
 if (-not (Test-Path "package.json")) {
-    Print-Error "package.json non trouvé!"
+    Write-ScriptError "package.json non trouvé!"
     Write-Host "   Veuillez lancer ce script depuis le repertoire backend:" -ForegroundColor Red
     Write-Host "   cd backend" -ForegroundColor Red
     Write-Host "   .\setup.ps1" -ForegroundColor Red
@@ -53,12 +47,12 @@ if (-not (Test-Path "package.json")) {
 }
 
 # Verifier la version de Node.js
-Print-Section "1. Verification de l'installation de Node.js"
+Write-Section "1. Verification de l'installation de Node.js"
 $nodeVersion = node --version
 if ($LASTEXITCODE -eq 0) {
-    Print-Success "Node.js est installe: $nodeVersion"
+    Write-Success "Node.js est installe: $nodeVersion"
 } else {
-    Print-Error "Node.js n'est pas installe!"
+    Write-ScriptError "Node.js n'est pas installe!"
     Write-Host "   Veuillez installer Node.js depuis https://nodejs.org/" -ForegroundColor Red
     exit 1
 }
@@ -66,36 +60,36 @@ if ($LASTEXITCODE -eq 0) {
 # Verifier la version de npm
 $npmVersion = npm --version
 if ($LASTEXITCODE -eq 0) {
-    Print-Success "npm est installe: $npmVersion"
+    Write-Success "npm est installe: $npmVersion"
 } else {
-    Print-Error "npm n'est pas installe!"
+    Write-ScriptError "npm n'est pas installe!"
     exit 1
 }
 
 # Installer les dependances
-Print-Section "2. Installation des dependances"
+Write-Section "2. Installation des dependances"
 if (Test-Path "node_modules") {
-    Print-Warning "node_modules existe deja. Saut de npm install..."
+    Write-ScriptWarning "node_modules existe deja. Saut de npm install..."
     Write-Host "   Pour reinstaller, supprimez node_modules et executez a nouveau:" -ForegroundColor Yellow
     Write-Host "   Remove-Item node_modules -Recurse -Force" -ForegroundColor Yellow
     Write-Host "   npm install" -ForegroundColor Yellow
 } else {
-    Print-Info "Installation des packages npm... (cela peut prendre quelques minutes)"
+    Write-ScriptInfo "Installation des packages npm... (cela peut prendre quelques minutes)"
     npm install
     if ($LASTEXITCODE -eq 0) {
-        Print-Success "Dependances installees avec succes"
+        Write-Success "Dependances installees avec succes"
     } else {
-        Print-Error "Erreur lors de l'installation des dependances"
+        Write-ScriptError "Erreur lors de l'installation des dependances"
         exit 1
     }
 }
 
 # Verifier le fichier .env
-Print-Section "3. Verification de la configuration d'environnement"
+Write-Section "3. Verification de la configuration d'environnement"
 if (Test-Path ".env") {
-    Print-Success "Le fichier .env existe"
+    Write-Success "Le fichier .env existe"
 } else {
-    Print-Warning "Le fichier .env n'a pas ete trouve!"
+    Write-ScriptWarning "Le fichier .env n'a pas ete trouve!"
     Write-Host ""
     Write-Host "   Veuillez creer un fichier .env avec les variables suivantes:" -ForegroundColor Yellow
     Write-Host ""
@@ -126,7 +120,7 @@ if (Test-Path ".env") {
 }
 
 # Afficher les commandes disponibles
-Print-Section "4. Commandes disponibles"
+Write-Section "4. Commandes disponibles"
 Write-Host ""
 Write-Host "npm run start:dev        " -ForegroundColor Green -NoNewline
 Write-Host "- Demarrer en mode developpement avec rechargement auto"
@@ -149,7 +143,7 @@ Write-Host "- Compiler pour la production"
 Write-Host ""
 
 # Afficher les ameliorations
-Print-Section "5. Ameliorations clés implementees"
+Write-Section "5. Ameliorations clés implementees"
 Write-Host ""
 Write-Host "[OK] Filtre global des exceptions     " -ForegroundColor Green -NoNewline
 Write-Host "- Gestion d'erreurs unifiee"
@@ -168,7 +162,7 @@ Write-Host "- Filtrage et pagination"
 Write-Host ""
 
 # Afficher les fichiers de documentation
-Print-Section "6. Fichiers de documentation"
+Write-Section "6. Fichiers de documentation"
 Write-Host ""
 Write-Host "TESTING_GUIDE.md         " -ForegroundColor Cyan -NoNewline
 Write-Host "- Guide complet pour tester tous les endpoints"
@@ -179,12 +173,12 @@ Write-Host "- Vue d'ensemble du projet"
 Write-Host ""
 
 # Afficher les prochaines etapes
-Print-Section "7. Pret a commencer?"
+Write-Section "7. Pret a commencer?"
 Write-Host ""
-Print-Info "Pour demarrer le serveur de developpement, lancez:"
+Write-ScriptInfo "Pour demarrer le serveur de developpement, lancez:"
 Write-Host "npm run start:dev" -ForegroundColor Green
 Write-Host ""
-Print-Info "Puis visitez:"
+Write-ScriptInfo "Puis visitez:"
 Write-Host "http://localhost:3000/api/docs              " -ForegroundColor Green -NoNewline
 Write-Host "- Documentation Swagger"
 Write-Host "http://localhost:3000                       " -ForegroundColor Green -NoNewline
@@ -194,14 +188,14 @@ Write-Host ""
 # Demander de demarrer le serveur
 $response = Read-Host "Voulez-vous demarrer le serveur de developpement maintenant? (o/n)"
 if ($response -eq "o" -or $response -eq "O") {
-    Print-Section "Demarrage du serveur de developpement"
+    Write-Section "Demarrage du serveur de developpement"
     npm run start:dev
 }
 
 Write-Host ""
-Print-Section "Installation terminee!"
+Write-Section "Installation terminee!"
 Write-Host ""
-Print-Success "Le backend est pret pour le developpement et les tests"
+Write-Success "Le backend est pret pour le developpement et les tests"
 Write-Host ""
 Write-Host "Guide de test detaille: TESTING_GUIDE.md" -ForegroundColor Cyan
 Write-Host "Ameliorations effectuees: IMPROVEMENTS.md" -ForegroundColor Cyan
