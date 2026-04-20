@@ -1,6 +1,7 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe, Logger } from '@nestjs/common';
+import { HttpAdapterHost } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { HttpExceptionFilter } from './common/filters/http-exception.filter';
 import rateLimit from 'express-rate-limit';
@@ -24,7 +25,8 @@ async function bootstrap() {
   app.use(limiter);
 
   // Filtre global d'exceptions
-  app.useGlobalFilters(new HttpExceptionFilter(app.get('HttpAdapterHost')));
+  const httpAdapterHost = app.get(HttpAdapterHost);
+  app.useGlobalFilters(new HttpExceptionFilter(httpAdapterHost));
 
   // Pipe de validation avec configuration amelioree
   app.useGlobalPipes(
