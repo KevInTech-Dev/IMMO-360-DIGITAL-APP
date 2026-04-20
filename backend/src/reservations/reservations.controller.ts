@@ -17,7 +17,6 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../common/guards/roles.guard';
 import { Roles } from '../common/decorators/roles.decorator';
 import { UserRole } from '../users/dto/create-user.dto';
-import { CurrentUser } from '../common/decorators/current-user.decorator';
 
 @ApiTags('Reservations')
 @ApiBearerAuth('access-token')
