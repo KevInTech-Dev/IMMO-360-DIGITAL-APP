@@ -4,6 +4,7 @@ import {
   BadRequestException,
   Logger,
 } from '@nestjs/common';
+import { StatutPaiement, StatutReservation } from '@prisma/client';
 import { CreatePaiementDto } from './dto/create-paiement.dto';
 import { UpdatePaiementDto } from './dto/update-paiement.dto';
 import { PrismaService } from '../prisma/prisma.service';
@@ -45,9 +46,9 @@ export class PaiementsService {
         throw new NotFoundException('Réservation introuvable');
       }
 
-      // 2. Vérifier qu'il n'y a pas déjà un paiement confirmer pour cette réservation
+      // 2. Vérifier qu'il n'y a pas déjà un paiement confirmé pour cette réservation
       const existingConfirmedPayment = reservation.paiements.find(
-        (p) => p.statut === 'CONFIRMEE',
+        (p) => p.statut === StatutPaiement.SUCCES,
       );
 
       if (existingConfirmedPayment) {
@@ -89,7 +90,7 @@ export class PaiementsService {
           ...createPaiementDto,
           montant,
           referencePayDunya: token || undefined,
-          statut: 'EN_ATTENTE',
+          statut: StatutPaiement.EN_ATTENTE,
           datePaiement: null,
         },
         include: {
@@ -134,27 +135,27 @@ export class PaiementsService {
       }
 
       // 2. Mettre à jour le statut basé sur la réponse
-      const newStatus =
+      const newStatus: StatutPaiement =
         payload.status === 'completed'
-          ? 'CONFIRMEE'
+          ? StatutPaiement.SUCCES
           : payload.status === 'failed'
-            ? 'ECHOUEE'
-            : 'ANNULEE';
+            ? StatutPaiement.ECHEC
+            : StatutPaiement.REMBOURSE;
 
       const updatedPaiement = await this.prisma.paiement.update({
         where: { id: paiement.id },
         data: {
           statut: newStatus,
-          datePaiement: newStatus === 'CONFIRMEE' ? new Date() : null,
+          datePaiement: newStatus === StatutPaiement.SUCCES ? new Date() : null,
         },
         include: { reservation: true },
       });
 
       // 3. Si paiement confirmé, mettre à jour le statut de réservation
-      if (newStatus === 'CONFIRMEE') {
+      if (newStatus === StatutPaiement.SUCCES) {
         await this.prisma.reservation.update({
           where: { id: paiement.reservationId },
-          data: { statut: 'CONFIRMEE' },
+          data: { statut: StatutReservation.CONFIRMEE },
         });
 
         this.logger.log(
@@ -185,7 +186,7 @@ export class PaiementsService {
         throw new NotFoundException('Paiement introuvable');
       }
 
-      if (paiement.statut === 'CONFIRMEE') {
+      if (paiement.statut === StatutPaiement.SUCCES) {
         throw new BadRequestException('Ce paiement est déjà confirmé');
       }
 
@@ -202,7 +203,7 @@ export class PaiementsService {
       const updatedPaiement = await this.prisma.paiement.update({
         where: { id: paiementId },
         data: {
-          statut: 'CONFIRMEE',
+          statut: StatutPaiement.SUCCES,
           datePaiement: new Date(),
         },
         include: { reservation: true },
@@ -211,7 +212,7 @@ export class PaiementsService {
       // 4. Mettre à jour la réservation
       await this.prisma.reservation.update({
         where: { id: paiement.reservationId },
-        data: { statut: 'CONFIRMEE' },
+        data: { statut: StatutReservation.CONFIRMEE },
       });
 
       this.logger.log(`Paiement confirmé: ${paiementId}`);
@@ -225,13 +226,14 @@ export class PaiementsService {
 
   async findAll(filters?: { reservationId?: string; statut?: string }) {
     try {
+      const where: any = {};
+      if (filters?.reservationId) where.reservationId = filters.reservationId;
+      if (filters?.statut && Object.values(StatutPaiement).includes(filters.statut as StatutPaiement)) {
+        where.statut = filters.statut as StatutPaiement;
+      }
+
       const paiements = await this.prisma.paiement.findMany({
-        where: {
-          ...(filters?.reservationId && {
-            reservationId: filters.reservationId,
-          }),
-          ...(filters?.statut && { statut: filters.statut }),
-        },
+        where,
         include: {
           reservation: {
             include: {
@@ -298,7 +300,7 @@ export class PaiementsService {
       }
 
       // Empêcher la modification de paiements confirmés
-      if (paiement.statut === 'CONFIRMEE') {
+      if (paiement.statut === StatutPaiement.SUCCES) {
         throw new BadRequestException(
           'Impossible de modifier un paiement confirmé',
         );
@@ -330,7 +332,7 @@ export class PaiementsService {
       }
 
       // Empêcher la suppression de paiements confirmés
-      if (paiement.statut === 'CONFIRMEE') {
+      if (paiement.statut === StatutPaiement.SUCCES) {
         throw new BadRequestException(
           'Impossible de supprimer un paiement confirmé',
         );
@@ -360,7 +362,7 @@ export class PaiementsService {
       }
 
       const stats = await this.prisma.paiement.aggregate({
-        where: { ...where, statut: 'CONFIRMEE' },
+        where: { ...where, statut: StatutPaiement.SUCCES },
         _sum: { montant: true },
         _count: true,
       });

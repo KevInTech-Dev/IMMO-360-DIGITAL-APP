@@ -5,6 +5,7 @@ import {
   ConflictException,
   Logger,
 } from '@nestjs/common';
+import { StatutReservation } from '@prisma/client';
 import { CreateReservationDto } from './dto/create-reservation.dto';
 import { UpdateReservationDto } from './dto/update-reservation.dto';
 import { PrismaService } from '../prisma/prisma.service';
@@ -30,7 +31,7 @@ export class ReservationsService {
     const conflictingReservations = await this.prisma.reservation.findMany({
       where: {
         bienId,
-        statut: { in: ['EN_ATTENTE', 'CONFIRMEE'] },
+        statut: { in: [StatutReservation.ATTENTE_PAIEMENT, StatutReservation.CONFIRMEE] },
         ...(excludeReservationId && { NOT: { id: excludeReservationId } }),
       },
     });
@@ -118,7 +119,7 @@ export class ReservationsService {
       const reservation = await this.prisma.reservation.create({
         data: {
           ...createReservationDto,
-          statut: 'EN_ATTENTE',
+          statut: StatutReservation.ATTENTE_PAIEMENT,
         },
         include: {
           locataire: {
@@ -145,19 +146,23 @@ export class ReservationsService {
 
       return reservation;
     } catch (error) {
-      this.logger.error(`Error creating reservation: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : 'Erreur inconnue';
+      this.logger.error(`Erreur lors de la creation de la reservation: ${errorMessage}`);
       throw error;
     }
   }
 
   async findAll(filters?: { bienId?: string; locataireId?: string; statut?: string }) {
     try {
+      const where: any = {};
+      if (filters?.bienId) where.bienId = filters.bienId;
+      if (filters?.locataireId) where.locataireId = filters.locataireId;
+      if (filters?.statut && Object.values(StatutReservation).includes(filters.statut as StatutReservation)) {
+        where.statut = filters.statut as StatutReservation;
+      }
+
       const reservations = await this.prisma.reservation.findMany({
-        where: {
-          ...(filters?.bienId && { bienId: filters.bienId }),
-          ...(filters?.locataireId && { locataireId: filters.locataireId }),
-          ...(filters?.statut && { statut: filters.statut }),
-        },
+        where,
         include: {
           locataire: {
             select: {
@@ -189,7 +194,8 @@ export class ReservationsService {
 
       return reservations;
     } catch (error) {
-      this.logger.error(`Error fetching reservations: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : 'Erreur inconnue';
+      this.logger.error(`Erreur lors de la recuperation des reservations: ${errorMessage}`);
       throw error;
     }
   }
@@ -218,7 +224,8 @@ export class ReservationsService {
 
       return reservation;
     } catch (error) {
-      this.logger.error(`Error fetching reservation ${id}: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : 'Erreur inconnue';
+      this.logger.error(`Erreur lors de la recuperation de la reservation ${id}: ${errorMessage}`);
       throw error;
     }
   }
@@ -272,7 +279,8 @@ export class ReservationsService {
 
       return updatedReservation;
     } catch (error) {
-      this.logger.error(`Error updating reservation ${id}: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : 'Erreur inconnue';
+      this.logger.error(`Erreur lors de la mise a jour de la reservation ${id}: ${errorMessage}`);
       throw error;
     }
   }
@@ -287,14 +295,14 @@ export class ReservationsService {
         throw new NotFoundException(`Réservation ${id} non trouvée`);
       }
 
-      if (reservation.statut === 'ANNULEE') {
+      if (reservation.statut === StatutReservation.ANNULEE) {
         throw new BadRequestException('La réservation est déjà annulée');
       }
 
       const cancelledReservation = await this.prisma.reservation.update({
         where: { id },
         data: {
-          statut: 'ANNULEE',
+          statut: StatutReservation.ANNULEE,
         },
         include: {
           locataire: true,
@@ -307,7 +315,8 @@ export class ReservationsService {
 
       return cancelledReservation;
     } catch (error) {
-      this.logger.error(`Error cancelling reservation ${id}: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : 'Erreur inconnue';
+      this.logger.error(`Erreur lors de l'annulation de la reservation ${id}: ${errorMessage}`);
       throw error;
     }
   }
@@ -323,7 +332,7 @@ export class ReservationsService {
       }
 
       // Prevent deletion of confirmed or completed reservations
-      if (['CONFIRMEE', 'COMPLETEE'].includes(reservation.statut)) {
+      if (reservation.statut === StatutReservation.CONFIRMEE || reservation.statut === StatutReservation.TERMINEE) {
         throw new BadRequestException(
           'Impossible de supprimer une réservation confirmée ou complétée',
         );
@@ -337,7 +346,8 @@ export class ReservationsService {
 
       return { success: true, message: 'Réservation supprimée avec succès' };
     } catch (error) {
-      this.logger.error(`Error deleting reservation ${id}: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : 'Erreur inconnue';
+      this.logger.error(`Erreur lors de la suppression de la reservation ${id}: ${errorMessage}`);
       throw error;
     }
   }
