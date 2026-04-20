@@ -45,7 +45,7 @@ COPY --from=builder /app/node_modules/@prisma ./node_modules/@prisma
 RUN npx prisma generate
 
 # Remove development dependencies to reduce image size
-RUN npm prune --production
+RUN npm prune --production --legacy-peer-deps
 
 # Expose port
 EXPOSE 3000
