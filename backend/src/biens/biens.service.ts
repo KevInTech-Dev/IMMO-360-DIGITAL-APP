@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CreateBienDto } from './dto/create-bien.dto';
+import { CreateBienDto, StatutPublication } from './dto/create-bien.dto';
 import { UpdateBienDto } from './dto/update-bien.dto';
 import { PrismaService } from '../prisma/prisma.service';
 
@@ -9,7 +9,10 @@ export class BiensService {
 
   create(createBienDto: CreateBienDto) {
     return this.prisma.bien.create({
-      data: createBienDto,
+      data: {
+        ...createBienDto,
+        statutPublication: StatutPublication.BROUILLON,
+      },
     });
   }
 
