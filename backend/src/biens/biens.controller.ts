@@ -6,6 +6,7 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RolesGuard } from '../common/guards/roles.guard';
 import { Roles } from '../common/decorators/roles.decorator';
 import { UserRole } from '../users/dto/create-user.dto';
+import { CurrentUser } from '../common/decorators/current-user.decorator';
 
 @Controller('biens')
 @UseGuards(JwtAuthGuard, RolesGuard)
@@ -14,8 +15,8 @@ export class BiensController {
 
   @Post()
   @Roles(UserRole.ADMIN, UserRole.PROPRIETAIRE)
-  create(@Body() createBienDto: CreateBienDto) {
-    return this.biensService.create(createBienDto);
+  create(@Body() createBienDto: CreateBienDto, @CurrentUser() user) {
+    return this.biensService.create(createBienDto, user.userId);
   }
 
   @Get()

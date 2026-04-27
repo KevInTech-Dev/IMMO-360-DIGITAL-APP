@@ -26,8 +26,4 @@ export class CreateBienDto {
   @IsEnum(StatutPublication)
   @IsOptional()
   statutPublication?: StatutPublication;
-
-  @IsString()
-  @IsNotEmpty()
-  proprietaireId: string;
 }

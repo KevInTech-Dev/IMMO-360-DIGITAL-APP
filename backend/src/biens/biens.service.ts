@@ -7,11 +7,12 @@ import { PrismaService } from '../prisma/prisma.service';
 export class BiensService {
   constructor(private readonly prisma: PrismaService) {}
 
-  create(createBienDto: CreateBienDto) {
+  create(createBienDto: CreateBienDto, proprietaireId: string) {
     return this.prisma.bien.create({
       data: {
         ...createBienDto,
         statutPublication: StatutPublication.BROUILLON,
+        proprietaireId,
       },
     });
   }
